@@ -1,0 +1,2 @@
+version=3
+https://github.com/gabrielhurley/django_openstack_auth/tags .*/(\d[\d\.]+)\.tar\.gz
