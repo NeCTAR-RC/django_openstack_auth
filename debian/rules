@@ -21,18 +21,6 @@ override_dh_auto_install:
 #			--root $(CURDIR)/debian/python3-openstack-auth; \
 #	done
 
-ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
-override_dh_auto_test:
-	set -e && for pyversion in $(shell pyversions -r); do \
-		NOSE_WITH_OPENSTACK=1 \
-		NOSE_OPENSTACK_COLOR=1 \
-		NOSE_OPENSTACK_RED=0.05 \
-		NOSE_OPENSTACK_YELLOW=0.025 \
-		NOSE_OPENSTACK_SHOW_ELAPSED=1 \
-		PYTHONPATH=. $$pyversion openstack_auth/tests/run_tests.py ; \
-	done
-endif
-
 # Commands not to run
 override_dh_installcatalogs:
 override_dh_installemacsen override_dh_installifupdown:
