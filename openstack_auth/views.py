@@ -132,8 +132,7 @@ def login(request, template_name=None, extra_context=None, **kwargs):
 @never_cache
 def websso(request):
     """Logs a user in using a token from Keystone's POST."""
-    referer = request.META.get('HTTP_REFERER', settings.OPENSTACK_KEYSTONE_URL)
-    auth_url = re.sub(r'/auth.*', '', referer)
+    auth_url = settings.OPENSTACK_KEYSTONE_URL
     token = request.POST.get('token')
     try:
         request.user = auth.authenticate(request=request, auth_url=auth_url,

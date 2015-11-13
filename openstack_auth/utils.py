@@ -173,8 +173,7 @@ def get_keystone_client():
 def is_websso_enabled():
     """Websso is supported in Keystone version 3."""
     websso_enabled = getattr(settings, 'WEBSSO_ENABLED', False)
-    keystonev3_plus = (get_keystone_version() >= 3)
-    return websso_enabled and keystonev3_plus
+    return websso_enabled
 
 
 def build_absolute_uri(request, relative_url):
