@@ -314,7 +314,7 @@ class User(models.AbstractBaseUser, models.AnonymousUser):
                 self._authorized_tenants = utils.get_project_list(
                     user_id=self.id,
                     auth_url=endpoint,
-                    token=self.unscoped_token,
+                    token=self.token.id,
                     is_federated=self.is_federated)
             except (keystone_exceptions.ClientException,
                     keystone_exceptions.AuthorizationFailure):

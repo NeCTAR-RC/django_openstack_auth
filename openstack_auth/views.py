@@ -205,7 +205,7 @@ def switch(request, tenant_id, redirect_field_name=auth.REDIRECT_FIELD_NAME):
     # Keystone can be configured to prevent exchanging a scoped token for
     # another token. Always use the unscoped token for requesting a
     # scoped token.
-    unscoped_token = request.user.unscoped_token
+    unscoped_token = request.user.token.id
     auth = utils.get_token_auth_plugin(auth_url=endpoint,
                                        token=unscoped_token,
                                        project_id=tenant_id)
