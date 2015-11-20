@@ -13,6 +13,7 @@
 import logging
 import re
 
+from base64 import decodestring as b64decodestring
 import django
 from django.conf import settings
 from django.contrib import auth
@@ -28,6 +29,7 @@ from django.views.decorators.cache import never_cache  # noqa
 from django.views.decorators.csrf import csrf_exempt  # noqa
 from django.views.decorators.csrf import csrf_protect  # noqa
 from django.views.decorators.debug import sensitive_post_parameters  # noqa
+from json import loads as json_loads
 from keystoneclient.auth import token_endpoint
 from keystoneclient import exceptions as keystone_exceptions
 import six
@@ -133,7 +135,11 @@ def login(request, template_name=None, extra_context=None, **kwargs):
 def websso(request):
     """Logs a user in using a token from Keystone's POST."""
     auth_url = settings.OPENSTACK_KEYSTONE_URL
-    token = request.POST.get('token')
+    try:
+        token = json_loads(b64decodestring(request.POST['token']))
+        token = token['token']['id']
+    except Exception:
+        token = request.POST.get('token')
     try:
         request.user = auth.authenticate(request=request, auth_url=auth_url,
                                          token=token)
