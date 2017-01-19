@@ -143,7 +143,12 @@ def websso(request):
     auth.login(request, request.user)
     if request.session.test_cookie_worked():
         request.session.delete_test_cookie()
-    return django_http.HttpResponseRedirect(settings.LOGIN_REDIRECT_URL)
+
+    redirect_to = request.REQUEST.get(auth.REDIRECT_FIELD_NAME, '')
+    if not is_safe_url(url=redirect_to, host=request.get_host()):
+        redirect_to = settings.LOGIN_REDIRECT_URL
+
+    return django_http.HttpResponseRedirect(redirect_to)
 
 
 def logout(request, login_url=None, **kwargs):
