@@ -109,6 +109,10 @@ class Token(object):
         domain = {}
         domain['id'] = auth_ref.domain_id
         domain['name'] = auth_ref.domain_name
+
+        if 'project' in auth_ref:
+            domain['id'] = auth_ref['project']['domain']['id']
+            domain['name'] = auth_ref['project']['domain']['name']
         self.domain = domain
 
         # Federation-related attributes
