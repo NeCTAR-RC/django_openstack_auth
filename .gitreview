@@ -1,5 +1,5 @@
 [gerrit]
-host=review.openstack.org
+host=review.rc.nectar.org.au
 port=29418
-project=openstack/django_openstack_auth.git
-defaultbranch=stable/ocata
+project=NeCTAR-RC/django_openstack_auth.git
+defaultbranch=nectar/ocata
