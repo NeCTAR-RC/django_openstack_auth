@@ -222,6 +222,8 @@ class User(models.AbstractBaseUser, models.AnonymousUser):
             or utils.default_services_region(service_catalog)
         )
         self.roles = roles or []
+        if endpoint and 'v2.0' not in endpoint and 'v3' not in endpoint:
+            endpoint = endpoint + 'v3'
         self.endpoint = endpoint
         self.enabled = enabled
         self._authorized_tenants = authorized_tenants
