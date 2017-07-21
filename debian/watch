@@ -1,0 +1,3 @@
+version=3
+pts=uversionmangle=s/(rc|a|b|c)/~$1/
+http://tarballs.openstack.org/django_openstack_auth/ django_openstack_auth-(\d.*)\.tar\.gz
